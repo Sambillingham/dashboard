@@ -1,0 +1,17 @@
+{
+  "name": "dashboard",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.3.4",
+    "jade": "*",
+    "mongoose": "*",
+    "passport": "~0.1.17",
+    "passport-local-mongoose": "~0.2.5",
+    "passport-local": "~0.1.6",
+    "connect-flash": "~0.1.1"
+  }
+}

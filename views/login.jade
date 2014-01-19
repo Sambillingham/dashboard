@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    .container
+        .row
+            .col-sm-6
+                .well
+                    if messages.length > 0
+                        .alert.alert-danger.alert-dismissable= messages
+                            button(type="button" class="close" data-dismiss="alert" aria-hidden="true")&times;
+
+                    h1 Login Page
+                    p.lead keep your arms and legs inside at all times
+                    
+                    form(role='form', action="/login",method="post")
+                        .form-group
+                            input.form-control(type='text', name="username", placeholder='Enter Username' class="form-control")
+                        .form-group
+                            input.form-control(type='password', name="password", placeholder='Password' class="form-control")
+                        .form-group
+                            button.btn.btn-default(type='submit' class="btn btn-success") Submit
+                

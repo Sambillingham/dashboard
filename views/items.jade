@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    .container
+        .row
+            .col-sm-12
+                h1 Lists on lists
+                p This is where we see whats in our database
+
+                table.table.table-striped.table-bordered
+                    thead
+                        tr
+                            th Name
+                            th Description
+                            th Value
+                    tbody
+                        each item in items
+                            tr
+                                td= item.name
+                                td= item.desc
+                                td= item.value

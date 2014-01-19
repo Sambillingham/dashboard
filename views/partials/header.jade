@@ -1,0 +1,26 @@
+
+
+nav.navbar.navbar-default
+
+    .navbar-header
+        button(type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav")
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+
+    #main-nav.collapse.navbar-collapse.navbar-inverse
+        ul.nav.navbar-nav.pull-right
+            li(class=(title === 'Home' ? 'active' : ''))
+                a(href="/") Home 
+
+            li(class=(title === 'Items' ? 'active' : ''))
+                a(href="/items") Items
+            if (!user)
+                li(class=(title === 'Login' ? 'active' : ''))
+                    a(href="/login") Login
+                li(class=(title === 'Register' ? 'active' : ''))
+                    a(href="/register") Register
+            if (user)
+                li: a(class="") USER: #{user.username}
+                li: a(href="/logout") Logout
+
