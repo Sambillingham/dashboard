@@ -9,13 +9,24 @@ var express = require('express'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    app = express(),
+    server = http.createServer(app),
+    MongoStore = require('connect-mongo')(express);
 
+    var config = require('./config');
 
-var app = express(),
-    database = 'database_name';
+// mongoose
+var databaseName = config.database;
+mongoose.connect('mongodb://localhost/' + databaseName);
 
-// all environments
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    console.log("Connected to database: " + databaseName);
+});
+
+app.sessionStore = new MongoStore({ url: 'mongodb://localhost/' + databaseName })
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -24,7 +35,10 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your super secret something here'));
-app.use(express.session());
+app.use(express.session({
+    secret: config.cryptoKey,
+    store: app.sessionStore
+  }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -48,21 +62,8 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-// mongoose
-mongoose.connect('mongodb://localhost/' + database);
-
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-
-db.once('open', function () {
-
-    console.log("Connected to database: " + database);
-
-});
-
 routes(app);
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
