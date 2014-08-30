@@ -3,12 +3,11 @@ html
     head
         title #{title} | Node Dashboard
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        link(rel='stylesheet', href='/css/main.css')
 
         if env === 'development'
             link(href='/css/main.css', rel='stylesheet', media='screen')
         else
-            link(href='/css/main.min.css', rel='stylesheet', media='screen')
+            link(href='/css/dist/main.min.css', rel='stylesheet', media='screen')
 
     body
 
