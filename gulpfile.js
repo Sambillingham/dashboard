@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     sass = require('gulp-ruby-sass'),
     concat = require('gulp-concat'),
+    cssmin = require('gulp-cssmin'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     notify = require('gulp-notify'),
@@ -11,16 +12,18 @@ var gulp = require('gulp'),
 gulp.task('lint', function() {
     gulp.src('public/js/*.js')
         .pipe(jshint('.jshintrc'))
-        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('sass', function() {
     gulp.src('sass/{*.sass,*.scss}')
         .pipe(plumber())
-        .pipe(sass({ style: 'compressed', lineNumbers : true }))
+        .pipe(sass({ style: 'expanded', lineNumbers : true }))
         .pipe(plumber.stop())
-        .pipe(rename('main.min.css'))
         .pipe(gulp.dest('public/css'))
+        .pipe(cssmin())
+        .pipe(rename('main.min.css'))
+        .pipe(gulp.dest('public/css/dist'))
         .pipe(notify({ message: 'Styles task complete' }));
 });
 

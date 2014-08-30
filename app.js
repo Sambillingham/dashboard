@@ -29,6 +29,9 @@ var express = require('express'),
 var databaseName = config.database;
 mongoose.connect('mongodb://localhost/' + databaseName);
 
+//ENV
+var env = process.env.NODE_ENV || 'development';
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
@@ -58,6 +61,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req, res, next) {
     res.locals.user = req.user;
+    res.locals.env = env;
     next();
 });
 

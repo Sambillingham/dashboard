@@ -1,6 +1,6 @@
 {
   "name": "node-dashboard",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "scripts": {
     "start": "node app.js"
@@ -30,7 +30,7 @@
     "connect": "~3.1.1"
   },
   "devDependencies": {
-    "gulp": "~3.5.6",
+    "gulp": "~3.6.0",
     "gulp-rename": "~1.2.0",
     "gulp-concat": "~2.1.7",
     "gulp-uglify": "~0.2.1",
@@ -42,7 +42,8 @@
     "gulp-plumber": "~0.6.0",
     "passport-local-mongoose": "~0.2.6",
     "passport-local": "~0.1.6",
-    "passport": "~0.1.18"
+    "passport": "~0.1.18",
+    "gulp-cssmin": "~0.1.6"
   },
   "engines": {
     "node": ">=10.0"
